@@ -11,10 +11,10 @@ import {
     createWebHashHistory,
     createWebHistory
 } from 'vue-router';
-
 const routes = [{
         path: '/login',
-        component: () => import('../views/login/login.vue')
+        component: () => import('../views/login/login.vue'),
+
     },
     {
         path: '/',
@@ -22,7 +22,13 @@ const routes = [{
         children: [{
             path: 'home',
             component: () => import('../views/home/home.vue')
-        }]
+        }],
+            // beforeEnter: (to,from,next) =>{
+            //     if(sessionStorage.getItem("key") === null){
+            //         // return {path:'/login'}
+            //         next({path:'/login'})
+            //     }
+            // }
     }
 ]
 
@@ -31,5 +37,29 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes, // `routes: routes` 的缩写 等价于  routes： routes
 })
+const data = sessionStorage.getItem('token')
+// router.beforeEach((to,from,next) =>{
+//     if(to.path === '/login'){
+//         if(to.path === '/login'){
+//             next()
+//             return
+//         }
+//         next({path: '/login'})
+//     }else{
+//         next()
+//     }
+// })
+router.beforeEach((to,from,next) =>{
+    if(to.path != '/login'){
+        if(!sessionStorage.getItem('token')){
+            next({path: '/login'})
+        }else{
+            next()
+        }       
+    }else{
+        next()
+    }
+})
+
 
 export default router;
