@@ -13,7 +13,13 @@ import {
 import './style.css'
 import App from './App.vue';
 import ElementPlus from 'element-plus'
+// import ElementPlusIconsVue from '@element-plus/icons-vue'
+
 import 'element-plus/dist/index.css'
 import router from './router';
+import axios from 'axios';
+import { createPinia } from 'pinia';
+const pinia =  createPinia()
 
-createApp(App).use(ElementPlus).use(router).mount('#app');
+createApp(App).config.globalProperties.$axios = axios
+createApp(App).use(ElementPlus).use(router).use(pinia).mount('#app');

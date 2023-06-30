@@ -29,7 +29,8 @@ const routes = [{
             //         next({path:'/login'})
             //     }
             // }
-    }
+    },
+
 ]
 
 const router = createRouter({
@@ -37,7 +38,7 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes, // `routes: routes` 的缩写 等价于  routes： routes
 })
-const data = sessionStorage.getItem('token')
+// const data = sessionStorage.getItem('token')
 // router.beforeEach((to,from,next) =>{
 //     if(to.path === '/login'){
 //         if(to.path === '/login'){
