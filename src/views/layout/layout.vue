@@ -1,41 +1,79 @@
 <script setup>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { onBeforeMount} from 'vue';
 const router = useRouter();
-// var data = sessionStorage.getItem("key");
-// console.log(data);
-// onBeforeMount(
-//   () =>{
-//     if(data === null){
-//       console.log("hhh");
-//       //跳转到login界面
-//       router.replace("/login")
-//     }
-//   }
-// )
+import { Calendar, Search, User,Document,Menu as IconMenu,Location,Setting,House, ArrowRight } from '@element-plus/icons-vue'
+import Main from './main.vue'
+//页面跳转
 console.log(sessionStorage.getItem('token'));
 const handleClick = () => {
   router.push("/home");
 };
-
+//侧边栏(element-plus)
+const isCollapse = ref(true)
 </script>
 
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header>Header:这里是layout页面，也就是布局页面，参考element布局</el-header>
+      <!-- 顶部 -->
+      <el-header>
+      <!-- Header:这里是layout页面，也就是布局页面，参考element布局 -->
+      <el-menu class="el-menu-demo" mode="horizontal" :ellipsis="false">
+      <el-menu-item index="0"><el-icon :size="20"><User /></el-icon>LOGO</el-menu-item>
+      <el-menu-item index="0" @click="handleClick">
+        首页
+      </el-menu-item>
+    <div class="flex-grow" />
+    <el-menu-item index="1">
+      <el-avatar :size="50"/>
+      <span style="marigin: left 5px;">User</span>  
+    </el-menu-item>
+      </el-menu>
+      </el-header>
+      <!-- 内容 -->
       <el-container>
-        <el-aside width="200px">Aside</el-aside>
+        <el-aside width="auto">
+          <!-- <el-aside> -->
+          <el-radio-group v-model="isCollapse" style="margin: 20px 0 20px 0">
+        <el-radio-button :label="!isCollapse">Menu</el-radio-button>
+        </el-radio-group>
+
+    <el-menu
+    default-active="2"
+    class="el-menu-vertical-demo"
+    :collapse="isCollapse">
+    <!-- @open="handleOpen"
+    @close="handleClose"
+    > -->
+    <el-menu-item index="1">
+      <el-icon><House /></el-icon>
+      <template #title>Navigator Two</template>
+    </el-menu-item>
+    <el-sub-menu index="2">
+      <template #title>
+        <el-icon><location /></el-icon>
+        <span>Navigator One</span>
+      </template>
+      <el-menu-item-group>
+        <el-menu-item index="1-1">item one</el-menu-item>
+        <el-menu-item index="1-2">item two</el-menu-item>
+      </el-menu-item-group>
+      <el-menu-item-group>
+        <el-menu-item index="1-3">item three</el-menu-item>
+      </el-menu-item-group>
+      <el-sub-menu index="1-4">
+        <template #title><span>item four</span></template>
+        <el-menu-item index="1-4-1">item one</el-menu-item>
+      </el-sub-menu>
+    </el-sub-menu>
+    </el-menu> 
+        </el-aside>
+        <el-divider direction="vertical"></el-divider>
         <el-main>
-          <div>
-    在渲染这个组件之前，做一个判断，判断浏览器session中是否有token参数，要是没有，重新定向与login页面，路由地址跳转到login,
-    参考
-    <a href="https://router.vuejs.org/zh/guide/advanced/navigation-guards.html">点击这里跳转文档</a>做路由守卫
-          </div>
-          <el-button type="primary" @click="handleClick">点击跳转home页面，注意看url是否带了#号</el-button>
-          <div>
-            <router-view></router-view>
-          </div>
+        <!-- 主页 -->
+          <Main />
         </el-main>
       </el-container>
     </el-container>
@@ -49,20 +87,44 @@ const handleClick = () => {
 }
 
 .el-container{
-  height:100%;
+  height:100vh;
   padding:0;
   margin:0;
   width:100%;
 }
-.el-header{
-  background-color: antiquewhite;
-}
+// .el-header{
+//   // background-color: antiquewhite;
+// }
 .el-aside{
-  background-color: aqua;
+  background-color: 255, 255, 255;
 }
 .el-main{
-  background-color: aquamarine;
+  background-color: rgb(255, 255, 255);
 }
-
+.flex-grow{
+  flex-grow: 1;
+}
+.el-menu{
+align-items: center; /* 垂直居中 */
+justify-content: center; /* 水平居中 */
+border-right: 0;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
+.el-divider--vertical{
+  display:inline-block;
+  width:1px;
+  height:100%;		//更改竖向分割线长度
+  margin:0;
+  vertical-align:middle;
+  position:relative;
+}
+.el-radio-button{
+  border: 0;
+} 
 
 </style>
+
+

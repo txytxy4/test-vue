@@ -22,7 +22,12 @@ const routes = [{
         children: [{
             path: 'home',
             component: () => import('../views/home/home.vue')
-        }],
+        },
+        {
+            path:'/list',
+            component: () => import('../views/home/list.vue')
+        }
+        ],
             // beforeEnter: (to,from,next) =>{
             //     if(sessionStorage.getItem("key") === null){
             //         // return {path:'/login'}

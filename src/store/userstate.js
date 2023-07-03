@@ -3,9 +3,9 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('counter', {
   state: () => ({
-    token:"",
-    username:"",
-    userpassword:""
+    token:String,
+    username:String,
+    userpassword:String
   }),
   getters: {
     // double: (state) => state.count * 2,
